@@ -7,7 +7,7 @@ create table users(
 
 create table pets(
     id serial not null,
-    owner_id int not null,
+    owner_id integer not null,
     name varchar(50) not null,
 
     primary key(id),
@@ -16,7 +16,7 @@ create table pets(
 
 create table schedules(
     id serial not null,
-    pet_id int not null,
+    pet_id integer not null,
     schedule_date date,
 
     primary key(id),

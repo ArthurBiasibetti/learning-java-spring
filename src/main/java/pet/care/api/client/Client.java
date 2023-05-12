@@ -1,10 +1,15 @@
 package pet.care.api.client;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pet.care.api.pet.Pet;
+
+import java.util.List;
 
 @Table(name = "users")
 @Entity(name = "Client")
@@ -12,13 +17,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Client {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
 
-    public Client(ClienteInsertDTO data) {
+    @OneToMany(mappedBy = "owner")
+    @JsonIgnoreProperties("owner")
+    private List<Pet> pets;
+
+    public Client(ClientInsertDTO data) {
         this.name = data.name();
     }
 }

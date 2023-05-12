@@ -7,10 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import pet.care.api.client.Client;
-import pet.care.api.client.ClienteInsertDTO;
+import pet.care.api.client.ClientInsertDTO;
 import pet.care.api.client.ClienteRepository;
-
-import java.util.List;
 
 
 @RestController
@@ -22,7 +20,7 @@ public class ClientController {
 
     @PostMapping
     @Transactional
-    public void setClient(@RequestBody ClienteInsertDTO data) {
+    public void setClient(@RequestBody ClientInsertDTO data) {
         repository.save(new Client(data));
     }
 

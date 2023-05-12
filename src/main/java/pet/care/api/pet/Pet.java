@@ -1,10 +1,12 @@
 package pet.care.api.pet;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pet.care.api.client.Client;
 
 @Table(name = "pets")
 @Entity(name = "Pet")
@@ -13,15 +15,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Pet {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int owner_id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    @JsonIgnoreProperties("pets")
+    private Client owner;
 
     private String name;
 
-    public Pet(PetInsertDTO data) {
-        this.owner_id = data.owner_id();
-        this.name = data.name();
+    public Pet(String name, Client client) {
+        this.owner = client;
+        this.name = name;
     }
 }
