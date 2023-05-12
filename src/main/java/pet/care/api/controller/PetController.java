@@ -3,39 +3,27 @@ package pet.care.api.controller;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-import pet.care.api.client.Client;
-import pet.care.api.client.ClienteRepository;
 import pet.care.api.pet.Pet;
 import pet.care.api.pet.PetInsertDTO;
 import pet.care.api.pet.PetRepository;
-
-import java.util.List;
+import pet.care.api.pet.PetService;
 
 @RestController
 @RequestMapping("/pet")
 public class PetController {
 
     @Autowired
-    private PetRepository petRepository;
-
-    @Autowired
-    private ClienteRepository clientRepository;
+    private PetService service;
 
     @PostMapping
     @Transactional
-    public Pet setPet(@RequestBody @Valid PetInsertDTO data) {
-        Client owner = clientRepository.getReferenceById(data.owner_id());
-        Pet pet = new Pet(data.name(), owner);
-        petRepository.save(pet);
-
-        return pet;
-
-
+    public Pet registerPet(@RequestBody @Valid PetInsertDTO data) throws Exception {
+        return service.save(data);
     }
 
     @GetMapping
-    public List<Pet> getPet() {
-        return petRepository.findAll();
-    }
+    public Page<Pet> getPet(Pageable page) { return service.listPest(page); }
 }

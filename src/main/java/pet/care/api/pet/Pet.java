@@ -14,11 +14,11 @@ import pet.care.api.client.Client;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
+@SequenceGenerator(name="SEQ_PET_ID", sequenceName = "SEQ_PET_ID", allocationSize = 1)
 public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")

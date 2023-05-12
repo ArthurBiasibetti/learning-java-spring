@@ -8,24 +8,24 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import pet.care.api.client.Client;
 import pet.care.api.client.ClientInsertDTO;
+import pet.care.api.client.ClientService;
 import pet.care.api.client.ClienteRepository;
-
 
 @RestController
 @RequestMapping("/client")
 public class ClientController {
 
     @Autowired
-    private ClienteRepository repository;
+    private ClientService service;
 
     @PostMapping
     @Transactional
     public void setClient(@RequestBody ClientInsertDTO data) {
-        repository.save(new Client(data));
+        service.save(data);
     }
 
     @GetMapping
     public Page<Client> getClients(@PageableDefault(size = 3) Pageable page) {
-        return repository.findAll(page);
+        return service.listUsers(page);
     }
 }

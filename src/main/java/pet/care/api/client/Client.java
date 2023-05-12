@@ -18,6 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@SequenceGenerator(name="SEQ_CLIENT_ID", sequenceName = "SEQ_CLIENT_ID", allocationSize = 1)
 public class Client {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
