@@ -14,7 +14,11 @@ public class ClientService {
         return client;
     }
 
-    public Page<Client> listUsers(Pageable page) {
+    public Page<Client> listClients(Pageable page) {
         return repository.findAll(page);
+    }
+
+    public Client findClient(int id) {
+        return repository.findUserById(id);
     }
 }

@@ -28,4 +28,8 @@ public class PetService {
     public Page<Pet> listPest(Pageable page) {
         return repository.findAll(page);
     }
+
+    public Pet findPet(int id) {
+        return repository.findById(id).get();
+    }
 }
